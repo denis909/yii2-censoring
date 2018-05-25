@@ -19,30 +19,3 @@ echo FormCard::widget([
 ActiveForm::end();
 
 ?>
-
-<?/*
-
-<div class="backend-censoring-form">
-
-    <p><?= ;?></p>
-
-
-    <?= ;?>
-
-	<?= ;?>
-
-    <div class="form-group">
-
-        <?= Html::submitButton($model->isNewRecord ? 'Добавить' : 'Редактировать', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']);?>
-    
-    </div>
-
-</div>
-
-<?php
-
-$this->params['footer'] = $form->submitButton($model->isNewRecord ? 'Добавить' : 'Редактировать');
-
-?>
-
-*/?>
