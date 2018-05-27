@@ -25,14 +25,45 @@ echo GridView::widget([
     	),
         //'created',
         'search_for',
-        'replace_with',
-        'length',
+        array(
+        	'attribute' => 'replace_with',
+        	'headerOptions' => [
+        		'class' => 'd-none d-md-table-cell'
+        	],
+        	'contentOptions' => [
+        		'class' => 'd-none d-md-table-cell'
+        	],
+        	'filterOptions' => [
+        		'class' => 'd-none d-md-table-cell'
+        	]        	
+    	),
+    	array(
+    		'attribute' => 'length',
+        	'headerOptions' => [
+        		'class' => 'd-none d-md-table-cell'
+        	],
+        	'contentOptions' => [
+        		'class' => 'd-none d-md-table-cell'
+        	],
+        	'filterOptions' => [
+        		'class' => 'd-none d-md-table-cell'
+        	]        	
+    	),
         array(
         	'attribute' => 'mode',
         	'value' => function($model) {
         		return $model->modeName;
         	},
-        	'filter' => $searchModel->modeItems
+        	'filter' => $searchModel->modeItems,
+        	'headerOptions' => [
+        		'class' => 'd-none d-md-table-cell'
+        	],
+        	'contentOptions' => [
+        		'class' => 'd-none d-md-table-cell'
+        	],
+        	'filterOptions' => [
+        		'class' => 'd-none d-md-table-cell'
+        	]          	      	
         ),
         array(
             'class' => 'backend\widgets\ActionColumn',
