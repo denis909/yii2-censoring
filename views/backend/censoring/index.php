@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use backend\widgets\GridView;
-use backend\widgets\GridCard;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\CensoringSearch */
@@ -14,7 +13,39 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $this->params['actionMenu'][] = ['label' => 'Добавить', 'url' => ['create']];
 
-Yii::$app->controller->layout = 'main-page';
+//Yii::$app->controller->layout = 'main-page';
+
+echo GridView::widget([
+    'dataProvider' => $dataProvider,
+    'filterModel' => $searchModel,
+    'columns' => [
+        array(
+        	'class' => 'backend\widgets\PrimaryKeyColumn',
+        	'attribute' => 'id'
+    	),
+        //'created',
+        'search_for',
+        'replace_with',
+        'length',
+        array(
+        	'attribute' => 'mode',
+        	'value' => function($model) {
+        		return $model->modeName;
+        	},
+        	'filter' => $searchModel->modeItems
+        ),
+        array(
+            'class' => 'backend\widgets\ActionColumn',
+            'template' => '{update}'
+        ),
+        array(
+            'class' => 'backend\widgets\ActionColumn',
+            'template' => '{delete}'
+        )
+    ]
+]);
+
+/*
 
 echo GridCard::widget([
     'menu' => [
@@ -56,3 +87,5 @@ echo GridCard::widget([
         'layout' => '{summary}{pager}'
     ])
 ]);
+
+*/

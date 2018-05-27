@@ -2,13 +2,21 @@
 
 use yii\helpers\Html;
 use backend\widgets\ActiveForm;
-use backend\widgets\FormCard;
 
-Yii::$app->controller->layout = 'main-page';
+//Yii::$app->controller->layout = 'main-page';
 
+$form = ActiveForm::begin([
+	'submitButtonLabel' => $model->isNewRecord ? 'Добавить' : 'Редактировать'
+]);
+
+echo $model->render($form);
+
+ActiveForm::end(); 
+
+/*
 $form = ActiveForm::begin();
 
-$form->submitButtonLabel = $model->isNewRecord ? 'Добавить' : 'Редактировать';
+$form->submitButtonLabel = ;
 
 echo FormCard::widget([
 	'title' => $this->title,
@@ -17,5 +25,7 @@ echo FormCard::widget([
 ]);
 
 ActiveForm::end();
+
+*/
 
 ?>
