@@ -3,8 +3,8 @@
 use yii\helpers\Html;
 use backend\widgets\GridView;
 use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\CensoringSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 require __DIR__ . '/_common.php';
@@ -12,8 +12,6 @@ require __DIR__ . '/_common.php';
 $this->params['breadcrumbs'][] = $this->title;
 
 $this->params['actionMenu'][] = ['label' => 'Добавить', 'url' => ['create']];
-
-//Yii::$app->controller->layout = 'main-page';
 
 echo GridView::widget([
     'dataProvider' => $dataProvider,
@@ -23,47 +21,25 @@ echo GridView::widget([
         	'class' => 'backend\widgets\PrimaryKeyColumn',
         	'attribute' => 'id'
     	),
-        //'created',
         'search_for',
         array(
+            'class' => 'backend\grid\DataColumn',
         	'attribute' => 'replace_with',
-        	'headerOptions' => [
-        		'class' => 'd-none d-md-table-cell'
-        	],
-        	'contentOptions' => [
-        		'class' => 'd-none d-md-table-cell'
-        	],
-        	'filterOptions' => [
-        		'class' => 'd-none d-md-table-cell'
-        	]        	
+            'size' => 'lg'
     	),
     	array(
+            'class' => 'backend\grid\DataColumn',
     		'attribute' => 'length',
-        	'headerOptions' => [
-        		'class' => 'd-none d-md-table-cell'
-        	],
-        	'contentOptions' => [
-        		'class' => 'd-none d-md-table-cell'
-        	],
-        	'filterOptions' => [
-        		'class' => 'd-none d-md-table-cell'
-        	]        	
+            'size' => 'md'
     	),
         array(
+            'class' => 'backend\grid\DataColumn',
         	'attribute' => 'mode',
         	'value' => function($model) {
         		return $model->modeName;
         	},
         	'filter' => $searchModel->modeItems,
-        	'headerOptions' => [
-        		'class' => 'd-none d-md-table-cell'
-        	],
-        	'contentOptions' => [
-        		'class' => 'd-none d-md-table-cell'
-        	],
-        	'filterOptions' => [
-        		'class' => 'd-none d-md-table-cell'
-        	]          	      	
+            'size' => 'sm'
         ),
         array(
             'class' => 'backend\widgets\ActionColumn',
@@ -75,48 +51,3 @@ echo GridView::widget([
         )
     ]
 ]);
-
-/*
-
-echo GridCard::widget([
-    'menu' => [
-        'items' => isset($this->params['actionMenu']) ? $this->params['actionMenu'] : []
-    ],
-    'title' => $this->title,
-    'body' => GridView::widget([
-        'layout' => '{items}',
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            array(
-            	'class' => 'backend\widgets\PrimaryKeyColumn',
-            	'attribute' => 'id'
-        	),
-            //'created',
-            'search_for',
-            'replace_with',
-            'length',
-            array(
-            	'attribute' => 'mode',
-            	'value' => function($model) {
-            		return $model->modeName;
-            	},
-            	'filter' => $searchModel->modeItems
-            ),
-            array(
-                'class' => 'backend\widgets\ActionColumn',
-                'template' => '{update}'
-            ),
-            array(
-                'class' => 'backend\widgets\ActionColumn',
-                'template' => '{delete}'
-            )
-        ]
-    ]),
-    'footer' => GridView::widget([
-        'dataProvider' => $dataProvider,
-        'layout' => '{summary}{pager}'
-    ])
-]);
-
-*/
