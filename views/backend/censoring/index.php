@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use backend\widgets\GridView;
+use backend\grid\GridView;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
@@ -18,7 +18,7 @@ echo GridView::widget([
     'filterModel' => $searchModel,
     'columns' => [
         array(
-        	'class' => 'backend\widgets\PrimaryKeyColumn',
+        	'class' => 'backend\grid\PrimaryKeyColumn',
         	'attribute' => 'id'
     	),
         'search_for',
@@ -42,11 +42,11 @@ echo GridView::widget([
             'size' => 'sm'
         ),
         array(
-            'class' => 'backend\widgets\ActionColumn',
+            'class' => 'backend\grid\ActionColumn',
             'template' => '{update}'
         ),
         array(
-            'class' => 'backend\widgets\ActionColumn',
+            'class' => 'backend\grid\ActionColumn',
             'template' => '{delete}'
         )
     ]
