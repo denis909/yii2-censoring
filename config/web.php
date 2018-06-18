@@ -1,16 +1,3 @@
 <?php
 
-return [
-	'params' => [
-		'adminMenu' => [
-			'modules' => [
-				'items' => [
-					'censoring' => [
-						'label' => ['censoring', 'Censoring head'],
-						'url' => ['/backend/censoring']
-					]
-				]
-			]
-		]
-	]
-];
+return require __DIR__ . '/backend.php';
