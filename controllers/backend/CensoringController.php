@@ -2,7 +2,7 @@
 
 namespace backend\controllers;
 
-class CensoringController extends \backend\components\CrudController
+class CensoringController extends \backend\CrudController
 {
 
 	public $modelClass = 'common\models\Censoring';
