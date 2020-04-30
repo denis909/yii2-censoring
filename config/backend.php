@@ -1,16 +1,13 @@
 <?php
 
 return [
-	'params' => [
-		'adminMenu' => [
-			'modules' => [
-				'items' => [
-					'censoring' => [
-						'label' => ['censoring', 'Censoring head'],
-						'url' => ['/backend/censoring']
-					]
-				]
-			]
-		]
-	]
+    'params' => [
+        'backendMenu' => [
+            'censoring' => [
+                'label' => ['censoring', 'Censoring'],
+                'url' => ['/censoring'],
+                'icon' => 'fa fa-fw fa-pencil-alt'
+            ]
+        ]
+    ]
 ];

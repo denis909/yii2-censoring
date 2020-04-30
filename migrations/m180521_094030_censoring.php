@@ -1,13 +1,11 @@
 <?php
 
-namespace modules\censoring\migrations;
-
-use yii\db\Migration;
+namespace denis909\censoring\migrations;
 
 /**
  * Class m180521_094030_censoring
  */
-class m180521_094030_censoring extends Migration
+class m180521_094030_censoring extends \yii\db\Migration
 {
 
     public $tableName = '{{%censoring}}';

@@ -1,7 +1,7 @@
 {
     "name": "denis909/yii2-censoring",
     "type": "module",
-    "license": "MIT",
+    "license": "GPL",
     "autoload": {
         "psr-4": {
             "denis909\\censoring\\" : ""

@@ -1,11 +1,11 @@
 <?php
 
 return [
-	'controllerMap' => [
-		'migrate' => [
-			'migrationNamespaces' => [
-				'modules\censoring\migrations'
-			]
-		]
-	]
+    'controllerMap' => [
+        'migrate' => [
+            'migrationNamespaces' => [
+                'denis909\censoring\migrations'
+            ]
+        ]
+    ]
 ];
