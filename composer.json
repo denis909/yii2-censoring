@@ -1,0 +1,13 @@
+{
+    "name": "denis909/yii2-censoring",
+    "type": "module",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "denis909\\censoring\\" : ""
+        }
+    },
+    "require": {
+        "denis909/cascade-filesystem" : "*"
+    }
+}
