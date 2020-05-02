@@ -2,18 +2,22 @@
 
 namespace denis909\censoring\backend\controllers;
 
+use denis909\censoring\models\Censoring;
+use denis909\censoring\models\CensoringSearch;
+use denis909\censoring\backend\models\Censoring as CensoringForm;
+
 class CensoringController extends \backend\components\BackendCrudController
 {
 
-    public $modelClass = 'common\models\Censoring';
+    public $modelClass = Censoring::class;
 
-    public $searchModelClass = 'common\models\CensoringSearch';
+    public $searchModelClass = CensoringSearch::class;
 
-    public $formModelClass = 'common\forms\CensoringBackend';
+    public $formModelClass = CensoringForm::class;
 
     public function getViewPath()
     {
-        return '@modules/censoring/views/backend/censoring';
+        return '@denis909/censoring/backend/views/censoring';
     }
 
 }

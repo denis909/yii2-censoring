@@ -1,52 +1,52 @@
 <?php
 
-use yii\helpers\Html;
-use backend\grid\GridView;
-use yii\widgets\Pjax;
-
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 require __DIR__ . '/_common.php';
 
-$this->params['breadcrumbs'][] = $this->title;
+$theme = Yii::$app->backendTheme;
 
-$this->params['actionMenu'][] = ['label' => 'Добавить', 'url' => ['create']];
+$this->params['cardTitle'] = Yii::t('backend', 'Manage');
 
-echo GridView::widget([
+$this->params['breadcrumbs'][] = $this->params['cardTitle'];
+
+$this->params['actionMenu'][] = ['label' => Yii::t('backend', 'Create'), 'url' => ['create']];
+
+echo $theme->gridView([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'columns' => [
         array(
-        	'class' => 'backend\grid\PrimaryKeyColumn',
+        	'class' => $theme::PRIMARY_KEY_COLUMN,
         	'attribute' => 'id'
     	),
         'search_for',
         array(
-            'class' => 'backend\grid\DataColumn',
+            //'class' => 'backend\grid\DataColumn',
         	'attribute' => 'replace_with',
-            'size' => 'lg'
+            //'size' => 'lg'
     	),
     	array(
-            'class' => 'backend\grid\DataColumn',
+            //'class' => 'backend\grid\DataColumn',
     		'attribute' => 'length',
-            'size' => 'md'
+            //'size' => 'md'
     	),
         array(
-            'class' => 'backend\grid\DataColumn',
+            //'class' => 'backend\grid\DataColumn',
         	'attribute' => 'mode',
         	'value' => function($model) {
         		return $model->modeName;
         	},
-        	'filter' => $searchModel->modeItems,
-            'size' => 'sm'
+        	'filter' => $searchModel->modeList,
+            //'size' => 'sm'
         ),
         array(
-            'class' => 'backend\grid\ActionColumn',
+            'class' => $theme::ACTION_COLUMN,
             'template' => '{update}'
         ),
         array(
-            'class' => 'backend\grid\ActionColumn',
+            'class' => $theme::ACTION_COLUMN,
             'template' => '{delete}'
         )
     ]

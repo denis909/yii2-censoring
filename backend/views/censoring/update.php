@@ -12,8 +12,6 @@ $this->params['breadcrumbs'][] = 'Редактировать';
 
 <div class="backend-form-update">
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+<?= $this->render('_form', ['model' => $model]);?>
 
 </div>

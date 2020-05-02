@@ -1,5 +1,7 @@
 <?php
 
-$this->title = Yii::t('censoring', 'Censoring head');
+$this->title = Yii::t('censoring', 'Censoring');
 
-Yii::$app->params['adminMenu']['modules']['items']['censoring']['active'] = true;
+Yii::$app->params['backendMenu']['censoring']['active'] = true;
+
+$this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['/censoring']];

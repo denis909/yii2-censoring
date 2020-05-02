@@ -10,8 +10,6 @@ $this->params['breadcrumbs'][] = 'Добавить';
 
 <div class="backend-form-create">
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+<?= $this->render('_form', ['model' => $model]);?>
 
 </div>

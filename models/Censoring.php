@@ -33,7 +33,7 @@ class Censoring extends \yii\db\ActiveRecord
             [['search_for', 'replace_with'], 'trim'],
             [['search_for', 'replace_with'], 'string', 'max' => 255],
             [['search_for'], 'unique'],
-            [['mode'], 'in', 'range' => array_keys($this->modeItems)]
+            [['mode'], 'in', 'range' => array_keys($this->modeList)]
         ];
     }    
 
@@ -67,10 +67,10 @@ class Censoring extends \yii\db\ActiveRecord
     public static function modeList()
     {
     	return [
-    		static::MODE_BOTH => 'Слово целиком',
-    		static::MODE_LEFT => 'Начало слова',
-    		static::MODE_RIGHT => 'Конец слова',
-    		static::MODE_NONE => 'Часть слова'
+    		static::MODE_BOTH => Yii::t('censoring', 'Whole Word'),
+    		static::MODE_LEFT => Yii::t('censoring', 'Start of Word'),
+    		static::MODE_RIGHT => Yii::t('censoring', 'End of Word'),
+    		static::MODE_NONE => Yii::t('censoring', 'Part of Word')
     	];
     }
 
@@ -87,12 +87,12 @@ class Censoring extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
     	return [
-            'id' => 'Номер',
-            'created' => 'Создано',
-    		'search_for' => Yii::t('censoring', 'Censored word label'),
-    		'replace_with' => Yii::t('censoring', 'Replacement label'),
-    		'length' => 'Размер',
-    		'mode' => 'Режим замены'
+            'id' => Yii::t('censoring', 'ID'),
+            'created' => Yii::t('censoring', 'Created'),
+    		'search_for' => Yii::t('censoring', 'Censored Word'),
+    		'replace_with' => Yii::t('censoring', 'Replacement'),
+    		'length' => Yii::t('censoring', 'Length'),
+    		'mode' => Yii::t('censoring', 'Mode')
     	];
     }
 

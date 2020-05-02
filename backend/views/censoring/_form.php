@@ -1,18 +1,17 @@
 <?php
 
 use yii\helpers\Html;
-use backend\widgets\ActiveForm;
 
-$form = ActiveForm::begin([
-	'submitButtonLabel' => $model->isNewRecord ? 'Добавить' : 'Редактировать'
-]);
+$theme = Yii::$app->backendTheme;
 
-echo Html::tag('p', Yii::t('censoring', 'Add word info', ['%s' => 'настройках']));
+$form = $theme->beginActiveForm();
 
 echo $form->field($model, 'search_for')->textInput(['maxlength' => true]);
 
 echo $form->field($model, 'replace_with')->textInput(['maxlength' => true]);
 
-echo $form->field($model, 'mode')->dropDownList($this->modeList, ['prompt' => '...']);
+echo $form->field($model, 'mode')->dropDownList($model->modeList, ['prompt' => '...']);
 
-ActiveForm::end();
+echo $form->submitButton($model->isNewRecord ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'));
+
+$theme->endActiveForm();
