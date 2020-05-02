@@ -13,9 +13,9 @@ echo $form->field($model, 'mode')->dropDownList($model->modeList, ['prompt' => '
 ?>
 <div class="form-group">
 
-    <?php echo $form->submitButton($model->isNewRecord ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'));?>
+<?php echo $theme->submitButton($model->isNewRecord ? Yii::t('backend', 'Create') : Yii::t('backend', 'Update'));?>
 
-    <?php echo $form->saveButton(Yii::t('backend', 'Save'));?>
+<?php echo $theme->saveButton(Yii::t('backend', 'Save'));?>
 
 </div>
 <?php $theme->endActiveForm();?>
