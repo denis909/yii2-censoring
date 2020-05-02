@@ -15,9 +15,9 @@ class m180525_084543_censoring_length extends \yii\db\Migration
      */
     public function safeUp()
     {
-    	$this->addColumn($this->tableName, 'length', $this->integer()->unsigned());
+        $this->addColumn($this->tableName, 'length', $this->integer()->unsigned());
     
-    	$this->createIndex('censoring_length_idx', $this->tableName, ['length'], false);
+        $this->createIndex('censoring_length_idx', $this->tableName, ['length'], false);
     }
 
     /**
@@ -25,9 +25,9 @@ class m180525_084543_censoring_length extends \yii\db\Migration
      */
     public function safeDown()
     {
-    	$this->dropIndex('censoring_length_idx', $this->tableName);
+        $this->dropIndex('censoring_length_idx', $this->tableName);
 
-    	$this->dropColumn($this->tableName, 'length');
+        $this->dropColumn($this->tableName, 'length');
     }
 
 }

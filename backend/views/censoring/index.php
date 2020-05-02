@@ -18,27 +18,27 @@ echo $theme->gridView([
     'filterModel' => $searchModel,
     'columns' => [
         array(
-        	'class' => $theme::PRIMARY_KEY_COLUMN,
-        	'attribute' => 'id'
-    	),
+            'class' => $theme::PRIMARY_KEY_COLUMN,
+            'attribute' => 'id'
+        ),
         'search_for',
         array(
             //'class' => 'backend\grid\DataColumn',
-        	'attribute' => 'replace_with',
+            'attribute' => 'replace_with',
             //'size' => 'lg'
-    	),
-    	array(
-            //'class' => 'backend\grid\DataColumn',
-    		'attribute' => 'length',
-            //'size' => 'md'
-    	),
+        ),
         array(
             //'class' => 'backend\grid\DataColumn',
-        	'attribute' => 'mode',
-        	'value' => function($model) {
-        		return $model->modeName;
-        	},
-        	'filter' => $searchModel->modeList,
+            'attribute' => 'length',
+            //'size' => 'md'
+        ),
+        array(
+            //'class' => 'backend\grid\DataColumn',
+            'attribute' => 'mode',
+            'value' => function($model) {
+                return $model->modeName;
+            },
+            'filter' => $searchModel->modeList,
             //'size' => 'sm'
         ),
         array(
