@@ -7,101 +7,33 @@
  */
 namespace denis909\censoring\helpers;
 
-use Yii;
-use Exception;
-use denis909\censoring\models\Censoring;
-use yii\db\Query;
-
 class CensoringHelper
 {
 
-    const CACHE_ID = 'censoring_cache';
-
-    protected static $_search_for = null;
-
-    protected static $_replace_with = null;
-
-    //
-    // Get the censoring cache PHP script
-    //
-    public static function get_censoring_cache()
+    public static function mb_str_pad($input, $pad_length, $pad_string = ' ', $pad_type = STR_PAD_RIGHT, $encoding = null)
     {
-        $search_for = [];
-
-        $replace_to = [];
-
-        $query = (new Query)
-            ->select(['search_for', 'replace_with', 'mode'])
-            ->from(Censoring::tableName())
-            ->orderBy('length DESC');
- 
-        foreach ($query->each() as $row)
+        if (!$encoding)
         {
-            switch($row['mode'])
-            {
-                case Censoring::MODE_BOTH:
-
-                    $search_for[] = '%(?<=[^\p{L}\p{N}])(' . str_replace('\*', '[\p{L}\p{N}]*?', preg_quote($row['search_for'], '%')) . ')(?=[^\p{L}\p{N}])%iu';
-
-                    break;
-
-                case Censoring::MODE_LEFT:
-
-                    $search_for[] = '%(?<=[^\p{L}\p{N}])(' . str_replace('\*', '[\p{L}\p{N}]*?', preg_quote($row['search_for'], '%')) . ')%iu';
-
-                    break;
-
-                case Censoring::MODE_RIGHT:
-
-                    $search_for[] = '%(' . str_replace('\*', '[\p{L}\p{N}]*?', preg_quote($row['search_for'], '%')) . ')(?=[^\p{L}\p{N}])%iu';
-
-                    break;
-
-                case Censoring::MODE_NONE:
-
-                    $search_for[] = '%(' . str_replace('\*', '[\p{L}\p{N}]*?', preg_quote($row['search_for'], '%')) . ')%iu';
-
-                    break;
-
-                default: 
-
-                    throw new Exception('Unknown mode: ' . $row['mode']);
-            }           
-
-            if ($row['replace_with'])
-            {
-                $replace_to[] = $row['replace_with']; 
-            }
-            else
-            {
-                $replace_to[] = static::generate_replace_to($row['search_for'], '*');
-            }
+            $diff = strlen($input) - mb_strlen($input);
+        }
+        else
+        {
+            $diff = strlen($input) - mb_strlen($input, $encoding);
         }
 
-        return [$search_for, $replace_to];  
+        return str_pad($input, $pad_length + $diff, $pad_string, $pad_type);
     }   
 
-    //
-    // Generate the censoring cache PHP script
-    //
-    public static function generate_censoring_cache()
+    public static function generate_replace_to($search_for, $symbol = '*')
     {
-        if (Yii::$app->has('cache'))
-        {
-            return Yii::$app->cache->getOrSet(static::CACHE_ID, function()
-            {
-                return static::get_censoring_cache();
-            });         
-        }
-
-        return static::get_censoring_cache();
+        return static::mb_str_pad('', mb_strlen($search_for), $symbol);
     }
 
-    //
-    // Replace string matching regular expression
-    //
-    // This function takes care of possibly disabled unicode properties in PCRE builds
-    //
+    /**
+     * Replace string matching regular expression
+     *
+     * This function takes care of possibly disabled unicode properties in PCRE builds.
+     */
     public static function ucp_preg_replace($pattern, $replace, $subject, $callback = false)
     {
         if ($callback)
@@ -117,8 +49,8 @@ class CensoringHelper
             $replaced = preg_replace($pattern, $replace, $subject);
         }
 
-        // If preg_replace() returns false, this probably means unicode support is not built-in, 
-        // so we need to modify the pattern a little
+        // If preg_replace() returns false, this probably means unicode support is not built-in
+
         if ($replaced === false)
         {
             if (is_array($pattern))
@@ -139,37 +71,24 @@ class CensoringHelper
         return $replaced;
     }
 
-    public static function censor_words($text)
+    public static function mode_none_regexp(string $value) : string
     {
-        if (static::$_search_for === null)
-        {
-            list(static::$_search_for, static::$_replace_with) = static::generate_censoring_cache();
-        }
-
-        $text = static::ucp_preg_replace(static::$_search_for, static::$_replace_with, ' ' . $text . ' ');
-
-        $text = substr($text, 1, -1);
-
-        return $text;
+        return '%(' . str_replace('\*', '[\p{L}\p{N}]*?', preg_quote($value, '%')) . ')%iu';
     }
 
-    public static function mb_str_pad($input, $pad_length, $pad_string = ' ', $pad_type = STR_PAD_RIGHT, $encoding = null)
+    public static function mode_left_regexp(string $value) : string
     {
-        if (!$encoding)
-        {
-            $diff = strlen($input) - mb_strlen($input);
-        }
-        else
-        {
-            $diff = strlen($input) - mb_strlen($input, $encoding);
-        }
-
-        return str_pad($input, $pad_length + $diff, $pad_string, $pad_type);
-    }   
-
-    public static function generate_replace_to($search_for, $symbol = '*')
-    {
-        return static::mb_str_pad('', mb_strlen($search_for), $symbol);
+        return '%(?<=[^\p{L}\p{N}])(' . str_replace('\*', '[\p{L}\p{N}]*?', preg_quote($value, '%')) . ')%iu';
     }
+
+    public static function mode_right_regexp(string $value) : string
+    {
+        return '%(' . str_replace('\*', '[\p{L}\p{N}]*?', preg_quote($value, '%')) . ')(?=[^\p{L}\p{N}])%iu';
+    }
+
+    public static function mode_both_regexp(string $value) : string
+    {
+        return '%(?<=[^\p{L}\p{N}])(' . str_replace('\*', '[\p{L}\p{N}]*?', preg_quote($value, '%')) . ')(?=[^\p{L}\p{N}])%iu';
+    }        
 
 }

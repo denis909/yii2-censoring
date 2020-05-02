@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\controllers;
+namespace denis909\censoring\frontend\controllers;
 
 use Yii;
 use common\helpers\CensoringHelper;
@@ -9,17 +9,17 @@ use yii\web\Response;
 class CensoringController extends \yii\web\Controller
 {
 
-    public $defaultAction = 'get';
-
-    public function actionGet($text)
+    public function actionIndex($text)
     {
-        $text = CensoringHelper::censor_words($text);
+        $content = Yii::$app->censoring->censorWords($text);
 
         $response = Yii::$app->getResponse();
+        
         $response->headers->set('Content-Type', 'text/plain');
+        
         $response->format = Response::FORMAT_RAW;
 
-        return $text;
+        return $content;
     }
 
 }
